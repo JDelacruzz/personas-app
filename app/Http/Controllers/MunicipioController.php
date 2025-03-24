@@ -9,13 +9,13 @@ class MunicipioController extends Controller
 {
     public function index()
     {
-        $municipios = Municipio::all();
-        return view('municipios.index', compact('municipios'));
+        $municipios = Municipio::paginate(10); // Paginar los resultados
+        return view('municipio.index', compact('municipios')); // Llamar vista correcta
     }
 
     public function create()
     {
-        return view('municipios.new');
+        return view('municipio.new');
     }
 
     public function store(Request $request)
@@ -24,17 +24,15 @@ class MunicipioController extends Controller
             'muni_nomb' => 'required|string|max:255',
         ]);
 
-        Municipio::create([
-            'muni_nomb' => $request->muni_nomb,
-        ]);
+        Municipio::create($request->all());
 
-        return redirect()->route('municipios.index')->with('success', 'Municipio agregado correctamente');
+        return redirect()->route('municipio.index')->with('success', 'Municipio agregado correctamente');
     }
 
     public function edit($id)
     {
         $municipio = Municipio::findOrFail($id);
-        return view('municipios.edit', compact('municipio'));
+        return view('municipio.edit', compact('municipio'));
     }
 
     public function update(Request $request, $id)
@@ -44,18 +42,14 @@ class MunicipioController extends Controller
         ]);
 
         $municipio = Municipio::findOrFail($id);
-        $municipio->update([
-            'muni_nomb' => $request->muni_nomb,
-        ]);
+        $municipio->update($request->all());
 
-        return redirect()->route('municipios.index')->with('success', 'Municipio actualizado correctamente');
+        return redirect()->route('municipio.index')->with('success', 'Municipio actualizado correctamente');
     }
 
     public function destroy($id)
     {
-        $municipio = Municipio::findOrFail($id);
-        $municipio->delete();
-
-        return redirect()->route('municipios.index')->with('success', 'Municipio eliminado correctamente');
+        Municipio::destroy($id);
+        return redirect()->route('municipio.index')->with('success', 'Municipio eliminado correctamente');
     }
 }
