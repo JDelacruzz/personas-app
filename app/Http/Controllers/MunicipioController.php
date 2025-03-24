@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Municipio;
+use App\Models\Departamento;
 
 class MunicipioController extends Controller
 {
@@ -14,20 +15,33 @@ class MunicipioController extends Controller
     }
 
     public function create()
-    {
-        return view('municipio.new');
-    }
+{
+    return $this->new();
+}
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'muni_nomb' => 'required|string|max:255',
-        ]);
 
-        Municipio::create($request->all());
+public function new()
+{
+    $departamentos = Departamento::all(); // Obtener todos los departamentos
+    return view('municipio.new', compact('departamentos'));
+}
 
-        return redirect()->route('municipio.index')->with('success', 'Municipio agregado correctamente');
-    }
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'muni_nomb' => 'required|string|max:255',
+        'depa_codi' => 'required|integer', // Asegurar que se recibe
+    ]);
+
+    $municipio = new Municipio();
+    $municipio->muni_nomb = $validatedData['muni_nomb'];
+    $municipio->depa_codi = $validatedData['depa_codi']; // Agregar este campo
+    $municipio->save();
+
+    return redirect()->route('municipio.index')->with('success', 'Municipio creado correctamente.');
+}
+
+
 
     public function edit($id)
     {

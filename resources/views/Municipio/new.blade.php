@@ -1,18 +1,20 @@
-@extends('layouts.app')
+<form action="{{ route('municipio.store') }}" method="POST">
+    @csrf
 
-@section('content')
-<div class="container">
-    <h1>Nuevo Municipio</h1>
+    <div class="form-group">
+        <label>Nombre del Municipio:</label>
+        <input type="text" name="muni_nomb" class="form-control" required>
+    </div>
 
-    <form action="{{ route('municipio.store') }}" method="POST">
-        @csrf
+    <div class="form-group">
+        <label>Departamento:</label>
+        <select name="depa_codi" class="form-control" required>
+            <option value="">Seleccione un departamento</option>
+            @foreach($departamentos as $departamento)
+                <option value="{{ $departamento->depa_codi }}">{{ $departamento->depa_nomb }}</option>
+            @endforeach
+        </select>
+    </div>
 
-        <div class="form-group">
-            <label>Nombre:</label>
-            <input type="text" name="muni_nomb" class="form-control">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-</div>
-@endsection
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

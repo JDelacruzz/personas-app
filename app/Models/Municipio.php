@@ -13,5 +13,11 @@ class Municipio extends Model
     protected $primaryKey = 'muni_codi'; 
     public $timestamps = false; 
 
-    protected $fillable = ['muni_nomb'];
+    protected $fillable = ['muni_nomb', 'depa_codi'];
+
+    public function departamento()
+{
+    return $this->belongsTo(Departamento::class, 'depa_codi', 'depa_codi');
+}
+
 }
