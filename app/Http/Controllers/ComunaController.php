@@ -71,38 +71,34 @@ public function destroy($id)
 
     return view('comuna.index', ['comunas' => $comunas]);
 }
+public function edit($id)
+{
+    $comuna = Comuna::find($id);
+    if (!$comuna) {
+        return redirect()->route('comunas.index')->with('error', 'Comuna no encontrada.');
+    }
+
+    $municipios = DB::table('tb_municipio')
+        ->orderBy('muni_nomb')
+        ->get();
+
+    return view('comuna.edit', compact('comuna', 'municipios'));
+}
+
 public function update(Request $request, $id)
 {
     $comuna = Comuna::find($id);
+    if (!$comuna) {
+        return redirect()->route('comunas.index')->with('error', 'Comuna no encontrada.');
+    }
 
     $comuna->comu_nomb = $request->name;
     $comuna->muni_codi = $request->code;
 
     $comuna->save();
 
-    $comunas = DB::table('tb_comuna')
-        ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
-        ->select('tb_comuna.*', 'tb_municipio.muni_nomb')
-        ->get();
-
-    return view('comuna.index', ['comunas' => $comunas]);
+    return redirect()->route('comunas.index')->with('success', 'Comuna actualizada correctamente.');
 }
 
-/**
- * Show the form for editing the specified resource.
- *
- * @param  int  $id
- * @return \Illuminate\Http\Response
- */
-public function edit($id)
-{
-    //
-    $comuna = Comuna::find($id);
-    $municipios = DB::table('tb_municipio')
-        ->orderBy('muni_nomb')
-        ->get();
-
-    return view('comuna.edit', ['comuna' => $comuna, 'municipios' => $municipios]);
-}
 
 }
