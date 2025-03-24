@@ -13,7 +13,7 @@ class ComunaController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index(){
+/* public function index(){
         //$comunas = Comuna:: all();
         $comunas = DB::table('tb_comuna')
         ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
@@ -21,4 +21,36 @@ class ComunaController extends Controller
         ->get();
         return view('comuna.index', ['comunas' => $comunas]);
     }
+        */
+        public function create(){
+            $municipios =DB::table('tb_municipio')
+            ->orderBy('muni_nomb')
+            ->get();
+            return view('comuna.new', ['municipios' => $municipios]);
+        }
+/**
+ * Store a newly created resource in storage.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
+public function store(Request $request)
+{
+    $comuna = new Comuna();
+
+    // $comuna->comu_codi = $request->id;
+    // El código de comuna es auto incremental
+
+    $comuna->comu_nomb = $request->name;
+    $comuna->muni_codi = $request->code;
+
+    $comuna->save();
+
+    $comunas = DB::table('tb_comuna')
+        ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
+        ->select('tb_comuna.*', 'tb_municipio.muni_nomb')
+        ->get();
+
+    return view('comuna.index', ['comunas' => $comunas]);
+}
 }
