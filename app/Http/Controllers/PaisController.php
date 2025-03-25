@@ -9,9 +9,11 @@ class PaisController extends Controller
 {
     public function index()
     {
-        $paises = Pais::paginate(10); // Paginar resultados
-        return view('pais.index', compact('paises')); // Llamar vista correcta
+    $paises = Pais::paginate(10); 
+    return view('pais.index', compact('paises'));
     }
+
+
 
     public function create()
     {
@@ -20,7 +22,7 @@ class PaisController extends Controller
 
     public function new()
     {
-        return view('pais.new'); // No necesita cargar relaciones
+        return view('pais.new'); 
     }
 
     public function store(Request $request)
@@ -38,28 +40,25 @@ class PaisController extends Controller
         return redirect()->route('pais.index')->with('success', 'Country created successfully.');
     }
 
-    public function edit($id)
+    public function edit($pais_codi)
     {
-        $pais = Pais::findOrFail($id);
-        return view('pais.edit', compact('pais'));
+    $pais = Pais::findOrFail($pais_codi);
+    return view('pais.edit', compact('pais'));
     }
 
-    public function update(Request $request, $id)
+
+    public function update(Request $request, $pais_codi)
     {
-        $request->validate([
-            'pais_nomb' => 'required|string|max:255',
-            'pais_capi' => 'required|string|max:255',
-        ]);
-
-        $pais = Pais::findOrFail($id);
-        $pais->update($request->all());
-
-        return redirect()->route('pais.index')->with('success', 'Country updated successfully.');
+    $pais = Pais::findOrFail($pais_codi);
+    $pais->update($request->all());
+    return redirect()->route('pais.index')->with('success', 'País actualizado correctamente');
     }
 
-    public function destroy($id)
+    public function destroy($pais_codi)
     {
-        Pais::destroy($id);
-        return redirect()->route('pais.index')->with('success', 'Country deleted successfully.');
+    $pais = Pais::findOrFail($pais_codi);
+    $pais->delete();
+    return redirect()->route('pais.index')->with('success', 'País eliminado correctamente');
     }
+
 }
