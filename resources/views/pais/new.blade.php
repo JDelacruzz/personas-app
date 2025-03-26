@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Add Country</title>
+    <title>Añadir Paisy</title>
 </head>
 <body>
     <div class="container mt-5">
         <div class="card shadow-sm rounded p-4">
-            <h1 class="text-primary mb-4">Add Country</h1>
+            <h1 class="text-primary mb-4">Añadir Pais</h1>
 
             <form method="POST" action="{{ route('paises.store') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="id" class="form-label">Code</label>
+                    <label for="id" class="form-label">Codigo</label>
                     <input type="text" class="form-control" id="id" name="Id" disabled>
-                    <div id="idHelp" class="form-text">Country code</div>
+                    <div id="idHelp" class="form-text">Pais Codigo</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Country</label>
+                    <label for="name" class="form-label">Pais</label>
                     <input type="text" class="form-control" id="name" name="name" required placeholder="Country name.">
                 </div>
 
                 <div class="mb-3">
                     <label for="capital" class="form-label">Capital</label>
                     <select class="form-select" id="capital" name="code" required>
-                        <option selected disabled value="">Choose one...</option>
+                        <option selected disabled value="">Escoge uno...</option>
                         @foreach ($municipios as $municipio)
                         <option value="{{ $municipio->muni_codi }}">{{ $municipio->muni_nomb }}</option>
                         @endforeach

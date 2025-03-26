@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Edit Country</title>
+    <title>Editar Pais</title>
 </head>
-edit
-
 <body>
     <div class="container mt-5">
         <div class="card shadow-sm rounded p-4">
-            <h1 class="text-primary mb-4">Edit Country</h1>
+            <h1 class="text-primary mb-4">Editar Pais</h1>
 
             <form method="POST" action="{{ route('paises.update', ['pais' => $pais->pais_codi]) }}">
                 @method('put')
@@ -21,18 +19,18 @@ edit
                 <div class="mb-3">
                     <label for="codigo" class="form-label">Id</label>
                     <input type="text" class="form-control" id="id" name="id" disabled value="{{ $pais->pais_codi }}">
-                    <div id="codigoHelp" class="form-text">Country Id.</div>
+                    <div id="codigoHelp" class="form-text">Pais Id.</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Country</label>
+                    <label for="name" class="form-label">Pais</label>
                     <input type="text" required class="form-control" id="name" name="name" value="{{ $pais->pais_nomb }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="capital" class="form-label">Capital</label>
                     <select class="form-select" id="capital" name="code" required>
-                        <option selected disabled value="">Choose one...</option>
+                        <option selected disabled value="">Escoge...</option>
                         @foreach ($municipios as $municipio)
                         @if ($municipio->muni_codi == $pais->pais_capi)
                         <option selected value="{{ $municipio->muni_codi }}">{{ $municipio->muni_nomb }}</option>
@@ -45,8 +43,8 @@ edit
 
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('paises.index') }}" class="btn btn-warning">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <a href="{{ route('paises.index') }}" class="btn btn-warning">Cancelar</a>
                 </div>
             </form>
         </div>

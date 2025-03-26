@@ -12,17 +12,17 @@
 <body>
 
     <div class="container mt-5">
-        <h1 class="mb-4">Department List</h1>
+        <h1 class="mb-4">Lista Departamentos</h1>
 
-        <a href="{{ route('departamentos.create') }}" class="btn btn-success mb-3">Add</a>
+        <a href="{{ route('departamentos.create') }}" class="btn btn-success mb-3">Añadir</a>
 
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Code</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Departmento</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +33,12 @@
                         <td>{{ $departamento->pais_nomb }}</td>
                         <td>
                             <div class="d-flex gap-2">
-                                <a href="{{ route('departamentos.edit', ['departamento' => $departamento->depa_codi]) }}" class="btn btn-info btn-sm">Edit</a>
+                                <a href="{{ route('departamentos.edit', ['departamento' => $departamento->depa_codi]) }}" class="btn btn-info btn-sm">Editar</a>
 
                                 <form action="{{ route('departamentos.destroy', ['departamento' => $departamento->depa_codi]) }}" method="POST" style="display: inline;">
                                     @method('delete')
                                     @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                 </form>
                             </div>
                         </td>

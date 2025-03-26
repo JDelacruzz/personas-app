@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Edit Department</h1>
+        <h1>Editar Departmento</h1>
 
         <form method="POST" action="{{ route('departamentos.update', ['departamento' => $departamento->depa_codi]) }}">
             @method('put')
@@ -20,17 +20,17 @@
             <div class="mb-3">
                 <label for="codigo" class="form-label">Id</label>
                 <input type="text" class="form-control" id="id" aria-describedby="codigoHelp" name="id" disabled="disabled" value="{{ $departamento->depa_codi }}">
-                <div id="codigoHelp" class="form-text">Department Id.</div>
+                <div id="codigoHelp" class="form-text">Departmento Id.</div>
             </div>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Department</label>
+                <label for="name" class="form-label">Departmento</label>
                 <input type="text" required class="form-control" id="name" placeholder="Department name" name="name" value="{{ $departamento->depa_nomb }}">
             </div>
 
-            <label for="country">Country:</label>
+            <label for="country">Pais:</label>
             <select class="form-select" id="country" name="country_code" required>
-                <option selected disabled value="">Choose one...</option>
+                <option selected disabled value="">Escoge uno...</option>
                 @foreach ($paises as $pais)
                 @if ($pais->pais_codi == $departamento->pais_codi)
                 <option selected value="{{ $pais->pais_codi }}">{{ $pais->pais_nomb }}</option>
@@ -41,8 +41,8 @@
             </select>
 
             <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('departamentos.index') }}" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+                <a href="{{ route('departamentos.index') }}" class="btn btn-warning">Cancelar</a>
             </div>
         </form>
     </div>
