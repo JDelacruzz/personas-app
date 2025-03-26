@@ -45,18 +45,30 @@ class PaisController extends Controller
 
     }
 
-    public function edit($pais_codi)
+    public function edit(string $id)
     {
-    $pais = Pais::findOrFail($pais_codi);
-    return view('pais.edit', compact('pais'));
+        $pais = Pais::find($id);
+        $municipios = DB::table('tb_municipio')
+            ->orderBy('muni_nomb')
+            ->get();
+    
+        return view('pais.edit', ['pais' => $pais, 'municipios' => $municipios]);
     }
 
 
-    public function update(Request $request, $pais_codi)
+    public function update(Request $request, string $id)
     {
-    $pais = Pais::findOrFail($pais_codi);
-    $pais->update($request->all());
-    return redirect()->route('pais.index')->with('success', 'País actualizado correctamente');
+        $pais = Pais::find($id);
+        $pais->pais_nomb = $request->name;
+        $pais->pais_capi = $request->code;
+        $pais->save();
+    
+        $paises = DB::table('tb_pais')
+            ->join('tb_municipio', 'tb_pais.pais_capi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_pais.*', 'tb_municipio.muni_nomb')
+            ->get();
+    
+        return view('pais.index', ['paises' => $paises]);
     }
 
     public function destroy($id)
