@@ -4,40 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pais;
+use Illuminate\Support\Facades\DB;
 
 class PaisController extends Controller
 {
     public function index()
     {
-    $paises = Pais::paginate(10); 
-    return view('pais.index', compact('paises'));
+        $paises=DB::table('tb_pais')
+        ->join('tb_municipio', 'tb_pais.pais_capi', '=', 'tb_municipio.muni_codi')
+        ->select('tb_pais.*', 'tb_municipio.muni_nomb')
+        ->get();
+    return view("pais.index", ['paises' => $paises]);
+
     }
 
 
 
     public function create()
     {
-        return $this->new();
-    }
+        $municipios = DB::table('tb_municipio')
+            ->orderBy('muni_nomb')
+            ->get();
+        return view('pais.new', ['municipios' => $municipios]);
 
-    public function new()
-    {
-        return view('pais.new'); 
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'pais_nomb' => 'required|string|max:255',
-            'pais_capi' => 'required|string|max:255',
-        ]);
-
         $pais = new Pais();
-        $pais->pais_nomb = $validatedData['pais_nomb'];
-        $pais->pais_capi = $validatedData['pais_capi'];
+        $pais->pais_codi = strtoupper(substr($request->name, 0, 3));
+        $pais->pais_nomb = $request->name;
+        $pais->pais_capi = $request->code;
         $pais->save();
 
-        return redirect()->route('pais.index')->with('success', 'Country created successfully.');
+        $paises = DB::table('tb_pais')
+            ->join('tb_municipio', 'tb_pais.pais_capi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_pais.*', 'tb_municipio.muni_nomb')
+            ->get();
+        return view("pais.index", ['paises' => $paises]);
+
     }
 
     public function edit($pais_codi)

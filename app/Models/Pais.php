@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Pais extends Model
 {
     use HasFactory;
-    protected $table = 'tb_pais';  
-    protected $primaryKey = 'pais_codi';
-    protected $fillable = ['pais_nomb', 'pais_capi'];
 
-    public $timestamps = false; 
+    protected $table = 'tb_pais';
+    protected $primaryKey = 'pais_codi';
+    protected $keyType = 'string';
+    public $timestamps = false;
 }
