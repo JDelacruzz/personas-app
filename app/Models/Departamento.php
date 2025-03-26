@@ -9,7 +9,8 @@ class Departamento extends Model
 {
     use HasFactory;
 
-    protected $table = 'tb_departamento'; // Si la tabla no sigue el estándar de nombres de Laravel
-    protected $primaryKey = 'depa_codi'; // Si la clave primaria no es 'id'
+    protected $table = 'tb_departamento'; 
+    protected $primaryKey = 'depa_codi';
+    protected $fillable = ['depa_nomb'];
 }
 
