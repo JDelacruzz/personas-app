@@ -28,12 +28,12 @@ Route::delete('/municipio/{id}', [MunicipioController::class, 'destroy'])->name(
 
 // Rutas para País
 
-Route::get('/pais', [PaisController::class, 'index'])->name('pais.index');
-Route::post('/pais', [PaisController::class, 'store'])->name('pais.store');
-Route::get('/pais/create', [PaisController::class, 'create'])->name('pais.create');
-Route::get('/pais/{pais_codi}/edit', [PaisController::class, 'edit'])->name('pais.edit');
-Route::put('/pais/{pais_codi}', [PaisController::class, 'update'])->name('pais.update');
-Route::delete('/pais/{pais_codi}', [PaisController::class, 'destroy'])->name('pais.destroy');
+Route::get('/paises', [PaisController::class, 'index'])->name('paises.index');
+Route::post('/paises', [PaisController::class, 'store'])->name('paises.store');
+Route::get('/paises/create', [PaisController::class, 'create'])->name('paises.create');
+Route::delete('/paises/{pais}', [PaisController::class, 'destroy'])->name('paises.destroy');
+Route::put('/paises/{pais}', [PaisController::class, 'update'])->name('paises.update');
+Route::get('/paises/{pais}/edit', [PaisController::class, 'edit'])->name('paises.edit');
 //rutas departamentos
 
 Route::get('/departamentos', [DepartamentoController::class, 'index'])->name('departamentos.index');

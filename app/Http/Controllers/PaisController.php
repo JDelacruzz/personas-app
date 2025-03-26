@@ -59,11 +59,16 @@ class PaisController extends Controller
     return redirect()->route('pais.index')->with('success', 'País actualizado correctamente');
     }
 
-    public function destroy($pais_codi)
+    public function destroy($id)
     {
-    $pais = Pais::findOrFail($pais_codi);
-    $pais->delete();
-    return redirect()->route('pais.index')->with('success', 'País eliminado correctamente');
+        $pais = Pais::find($id);
+        $pais->delete();
+
+        $paises = DB::table('tb_pais')
+            ->join('tb_municipio', 'tb_pais.pais_capi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_pais.*', 'tb_municipio.muni_nomb')
+            ->get();
+        return view("pais.index", ['paises' => $paises]);
     }
 
 }
